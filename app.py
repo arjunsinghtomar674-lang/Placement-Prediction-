@@ -43,11 +43,7 @@ st.subheader("Predict the Student is placed or not")
 # Process 
 st.write("Enter the details of the student given below and predict the output")
 
-# Image
-img_path = os.path.join(BASE_DIR, "pexels-tima-miroshnichenko-5439368.jpg")
 
-if os.path.exists(img_path):
-    st.image(img_path, width=400)
 
 
 #-------------------------
@@ -220,11 +216,10 @@ if st.button("🚀 Predict Score "):
     if prediction[0] == 1:
 
         st.success("You are Placed")
-        st.image("pexels-ersin-1398102958-31689192.jpg",width = 100)
-
+        
     else:
         st.error("You are not Placed")
-        st.image("pexels-mikhail-nilov-7534380.jpg")
+        
 
     st.metric(
         "Placement Probability ",
