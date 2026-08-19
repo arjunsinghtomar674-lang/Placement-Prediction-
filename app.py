@@ -5,14 +5,29 @@
 import pandas as pd 
 import streamlit as st
 import joblib
-
+import os
 
 #------------------------------
 ## STEP.2 -> Load the model
 #------------------------------
 
-model = joblib.load("placement_model.joblib")
-scaler = joblib.load("scaler.joblib")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Model aur Scaler ke Dynamic Paths
+model_path = os.path.join(BASE_DIR, "model","placement_model.joblib")
+scaler_path = os.path.join(BASE_DIR, "model","scalerp.joblib")
+
+# Agar dono files subfolder mein hain (e.g., 'model' folder mein):
+# model_path = os.path.join(BASE_DIR, "model", "placement_model.joblib")
+# scaler_path = os.path.join(BASE_DIR, "model", "scaler.joblib")
+
+# Dono Files Load Karein
+if os.path.exists(model_path) and os.path.exists(scaler_path):
+    model = joblib.load(model_path)
+    scaler = joblib.load(scaler_path)
+else:
+    st.error("Model ya Scaler file nahi mili! Check karein ki files sahi location par hain.")
+    st.stop()
 
 
 #-----------------------------------
@@ -29,8 +44,10 @@ st.subheader("Predict the Student is placed or not")
 st.write("Enter the details of the student given below and predict the output")
 
 # Image
-st.image("pexels-tima-miroshnichenko-5439368.jpg",width = 400)
+img_path = os.path.join(BASE_DIR, "pexels-tima-miroshnichenko-5439368.jpg")
 
+if os.path.exists(img_path):
+    st.image(img_path, width=400)
 
 
 #-------------------------
